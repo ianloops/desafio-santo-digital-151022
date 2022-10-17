@@ -29,7 +29,7 @@ def make_response(columns, items):
 
 
 @app.get("/api/course/students/list")
-async def get_list_students_by_course(rating: int):
+async def get_list_students_by_course(rating: int = 0):
     query = """
         SELECT course_id, student_id, rating
         FROM registration
@@ -45,7 +45,7 @@ async def get_list_students_by_course(rating: int):
     final_result = []
 
     for key, value in data.items():
-        if rating is not None and rating != key[1]:
+        if rating and rating != key[1]:
             continue
 
         final_result.append({
